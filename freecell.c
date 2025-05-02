@@ -171,7 +171,7 @@ void printGame()
     printf("================================================================================\n");
 }
 
-void userInput()
+void userMenu()
 {
     int origin, destiny, opt = -1;
     do
@@ -184,36 +184,25 @@ void userInput()
             printf("1 - Move from a stack (1-8) to an auxiliar space (1-4)\n");
             printf("2 - Move from a auxiliar space (1-4) to an stack (1-8)\n");
             scanf("%d", &opt);
-        } while (opt != 0 && opt != 1 && opt != 2);
-        
-        switch(opt)
+        } while (opt < 0 && opt > 2);
+
+        if (opt == 0)
         {
-            case 0:
-                return;
-                break;
-            case 1:
-                do
-                {
-                    printf("Type in this format: (origin  destiny)\n");
-                    scanf("%d", &origin);
-                    scanf("%d", &destiny);
-                }while (origin == -1 || destiny == -1 || destiny > 4 || destiny <= 0 || origin <= 0 || origin > 8);
-                printf("================================================================================\n");    
-                printf("ACTION: \n");
+            return;
+        }else
+        {
+            do
+            {
+                printf("Type in this format: (origin  destiny)\n");
+                scanf("%d", &origin);
+                scanf("%d", &destiny);
+            }while (origin == -1 || destiny == -1);
+            printf("================================================================================\n");    
+            printf("ACTION: \n");
+            if (opt == 1)
                 moveToAuxiliar(origin, destiny);
-                break;
-            case 2:
-                do
-                {
-                    printf("Type in this format: (origin  destiny)\n");
-                    scanf("%d", &origin);
-                    scanf("%d", &destiny);
-                } while (origin == -1 || destiny == -1 || destiny > 8 || destiny <= 0 || origin <= 0 || origin > 4);
-                printf("================================================================================\n");    
-                printf("ACTION: \n");
+            if (opt == 2)
                 moveFromAuxiliar(origin, destiny);
-                break;
-                
         }
         printf("================================================================================\n");  
     }while(opt != 0);
@@ -230,6 +219,6 @@ int main()
     printf("================================================================================\n");    
     printf("\t\t\tWelcome to the freecell game!\n");
     printf("================================================================================\n");   
-    userInput();
+    userMenu();
     return 0;
 }
