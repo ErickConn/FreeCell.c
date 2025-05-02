@@ -59,6 +59,21 @@ void moveToAuxiliar(int origin, int destiny)
     printf("Moved from the stack %d to auxiliar %d!\n", origin, destiny);
 }
 
+void moveFromAuxiliar(int origin, int destiny)
+{
+    card aux;
+    if(auxList[origin - 1].value == 0)
+    {
+        printf("There is no card on this auxiliar position!\n");
+        return;
+    }
+    aux = auxList[origin - 1];
+    auxList[origin - 1].value = 0;
+    auxList[origin - 1].suit = 0;
+    pushToStack(aux, &stack[destiny - 1]);
+    printf("Moved from the auxiliar %d to stack %d!\n", origin, destiny);
+}
+
 void initDeck(card deck[])
 {
     for (int i = 0; i < size; i++)
@@ -167,8 +182,9 @@ void userInput()
             printf("Choose one of the options bellow: \n");
             printf("0 - Exit\n");
             printf("1 - Move from a stack (1-8) to an auxiliar space (1-4)\n");
+            printf("2 - Move from a auxiliar space (1-4) to an stack (1-8)\n");
             scanf("%d", &opt);
-        } while (opt != 0 && opt != 1);
+        } while (opt != 0 && opt != 1 && opt != 2);
         
         switch(opt)
         {
@@ -186,6 +202,18 @@ void userInput()
                 printf("ACTION: \n");
                 moveToAuxiliar(origin, destiny);
                 break;
+            case 2:
+                do
+                {
+                    printf("Type in this format: (origin  destiny)\n");
+                    scanf("%d", &origin);
+                    scanf("%d", &destiny);
+                } while (origin == -1 || destiny == -1 || destiny > 8 || destiny <= 0 || origin <= 0 || origin > 4);
+                printf("================================================================================\n");    
+                printf("ACTION: \n");
+                moveFromAuxiliar(origin, destiny);
+                break;
+                
         }
         printf("================================================================================\n");  
     }while(opt != 0);
