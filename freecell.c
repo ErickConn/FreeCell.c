@@ -59,6 +59,11 @@ void moveToAuxiliar(int origin, int destiny)
     printf("Moved from the stack %d to auxiliar %d!\n", origin, destiny);
 }
 
+void verifyMove()
+{
+    // We need to verify the suit, and the number of the card on top of the stack
+}
+
 void moveFromAuxiliar(int origin, int destiny)
 {
     card aux;
@@ -67,12 +72,20 @@ void moveFromAuxiliar(int origin, int destiny)
         printf("There is no card on this auxiliar position!\n");
         return;
     }
+    verifyMove();
     aux = auxList[origin - 1];
     auxList[origin - 1].value = 0;
     auxList[origin - 1].suit = 0;
     pushToStack(aux, &stack[destiny - 1]);
     printf("Moved from the auxiliar %d to stack %d!\n", origin, destiny);
 }
+
+void moveBetweenStacks(int origin, int destiny)
+{
+    verifyMove();
+}
+
+
 
 void initDeck(card deck[])
 {
@@ -191,6 +204,8 @@ void inputHandler(int opt)
                 moveToAuxiliar(origin, destiny);
             if (opt == 2)
                 moveFromAuxiliar(origin, destiny);
+            if (opt == 3)
+                moveBetweenStacks(origin, destiny);
         }
         printf("================================================================================\n");  
 }
@@ -206,7 +221,8 @@ void userMenu()
             printf("Choose one of the options bellow: \n");
             printf("0 - Exit\n");
             printf("1 - Move from a stack (1-8) to an auxiliar space (1-4)\n");
-            printf("2 - Move from a auxiliar space (1-4) to an stack (1-8)\n");
+            printf("2 - Move from an auxiliar space (1-4) to a stack (1-8)\n");
+            printf("3 - Move from a stack (1-8) to a stack (1-8)\n");
             scanf("%d", &opt);
         } while (opt < 0 && opt > 2);
 
