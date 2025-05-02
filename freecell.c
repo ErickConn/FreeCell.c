@@ -171,22 +171,10 @@ void printGame()
     printf("================================================================================\n");
 }
 
-void userMenu()
+void inputHandler(int opt)
 {
-    int origin, destiny, opt = -1;
-    do
-    {
-        printGame();
-        do
-        {
-            printf("Choose one of the options bellow: \n");
-            printf("0 - Exit\n");
-            printf("1 - Move from a stack (1-8) to an auxiliar space (1-4)\n");
-            printf("2 - Move from a auxiliar space (1-4) to an stack (1-8)\n");
-            scanf("%d", &opt);
-        } while (opt < 0 && opt > 2);
-
-        if (opt == 0)
+    int origin, destiny = -1;
+    if (opt == 0)
         {
             return;
         }else
@@ -205,6 +193,25 @@ void userMenu()
                 moveFromAuxiliar(origin, destiny);
         }
         printf("================================================================================\n");  
+}
+
+void userMenu()
+{
+    int opt = -1;
+    do
+    {
+        printGame();
+        do
+        {
+            printf("Choose one of the options bellow: \n");
+            printf("0 - Exit\n");
+            printf("1 - Move from a stack (1-8) to an auxiliar space (1-4)\n");
+            printf("2 - Move from a auxiliar space (1-4) to an stack (1-8)\n");
+            scanf("%d", &opt);
+        } while (opt < 0 && opt > 2);
+
+        inputHandler(opt);
+        
     }while(opt != 0);
 }
 
