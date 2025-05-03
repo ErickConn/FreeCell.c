@@ -65,9 +65,13 @@ void moveToAuxiliar(int origin, int destiny)
     printf("Moved from the stack %d to auxiliar %d!\n", origin, destiny);
 }
 
-void verifyMove()
+int verifyMove(card cardO, card stack)
 {
     // We need to verify the suit, and the number of the card on top of the stack
+    if((cardO.suit.suitNum % 2 == 0 && stack.suit.suit % 2 == 0) || (cardO.suit.suitNum % 2 != 0 && stack.suit.suit % 2 != 0))
+        return 1;
+    printf("Move can't be done because of the incompatibility of the suits!\n");
+    return 0;
 }
 
 void moveFromAuxiliar(int origin, int destiny)
@@ -78,18 +82,20 @@ void moveFromAuxiliar(int origin, int destiny)
         printf("There is no card on this auxiliar position!\n");
         return;
     }
-    verifyMove();
     aux = auxList[origin - 1];
-    auxList[origin - 1].value = 0;
-    auxList[origin - 1].suit.suit = 0;
-    auxList[origin - 1].suit.suitNum = 0;
-    pushToStack(aux, &stack[destiny - 1]);
-    printf("Moved from the auxiliar %d to stack %d!\n", origin, destiny);
+    if (verifyMove(aux, stack[destiny - 1]->card))
+    {
+        auxList[origin - 1].value = 0;
+        auxList[origin - 1].suit.suit = 0;
+        auxList[origin - 1].suit.suitNum = 0;
+        pushToStack(aux, &stack[destiny - 1]);
+        printf("Moved from the auxiliar %d to stack %d!\n", origin, destiny);
+    }
 }
 
 void moveBetweenStacks(int origin, int destiny)
 {
-    verifyMove();
+    verifyMove(stack[origin - 1]->card, stack[destiny - 1]->card);
 }
 
 
@@ -113,7 +119,7 @@ void initDeck(card deck[])
             deck[i].suit.suitNum = 2;
         }else{
             deck[i].suit.suit = 'P';
-            deck[i].suit.suitNum = 1;
+            deck[i].suit.suitNum = 3;
         }
     }
 }
