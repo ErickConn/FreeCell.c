@@ -4,10 +4,16 @@
 
 #define size 52
 
+struct suit
+{
+    char suit;
+    int suitNum;
+}; typedef struct suit suit;
+
 struct Card
 {
     int value;
-    char suit;
+    suit suit;
 }; typedef struct Card card;
 
 struct no
@@ -75,7 +81,8 @@ void moveFromAuxiliar(int origin, int destiny)
     verifyMove();
     aux = auxList[origin - 1];
     auxList[origin - 1].value = 0;
-    auxList[origin - 1].suit = 0;
+    auxList[origin - 1].suit.suit = 0;
+    auxList[origin - 1].suit.suitNum = 0;
     pushToStack(aux, &stack[destiny - 1]);
     printf("Moved from the auxiliar %d to stack %d!\n", origin, destiny);
 }
@@ -94,15 +101,19 @@ void initDeck(card deck[])
         deck[i].value = i % 13 + 1;
         if (i / 13 < 1)
         {
-            deck[i].suit = 'C';
+            deck[i].suit.suit = 'C';
+            deck[i].suit.suitNum = 0;
         }else if (i / 13 < 2)
         {
-            deck[i].suit = 'E';
+            deck[i].suit.suit = 'E';
+            deck[i].suit.suitNum = 1;
         }else if(i / 13 < 3)
         {
-            deck[i].suit = 'O';
+            deck[i].suit.suit = 'O';
+            deck[i].suit.suitNum = 2;
         }else{
-            deck[i].suit = 'P';
+            deck[i].suit.suit = 'P';
+            deck[i].suit.suitNum = 1;
         }
     }
 }
@@ -135,15 +146,15 @@ void divideInStacks(card deck[], noPtr stack[])
 void convertCard(card current)
 {
     if (current.value == 1)
-        printf("A%c ", current.suit);
+        printf("A%c ", current.suit.suit);
     else if (current.value == 11)
-        printf("J%c ", current.suit);
+        printf("J%c ", current.suit.suit);
     else if (current.value == 12)
-        printf("Q%c ", current.suit);
+        printf("Q%c ", current.suit.suit);
     else if (current.value == 13)
-        printf("K%c ", current.suit);
+        printf("K%c ", current.suit.suit);
     else
-        printf("%d%c ", current.value, current.suit);
+        printf("%d%c ", current.value, current.suit.suit);
 }
 
 void printGame()
