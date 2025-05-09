@@ -68,9 +68,13 @@ void moveToAuxiliar(int origin, int destiny)
 int verifyMove(card cardO, card stack)
 {
     // We need to verify the suit, and the number of the card on top of the stack
-    if((cardO.suit.suitNum % 2 == 0 && stack.suit.suit % 2 == 0) || (cardO.suit.suitNum % 2 != 0 && stack.suit.suit % 2 != 0))
+    if((stack.value - cardO.value == 1) && (cardO.suit.suit != stack.suit.suit) && ((cardO.suit.suitNum % 2 == 0 && stack.suit.suit % 2 == 0) || (cardO.suit.suitNum % 2 != 0 && stack.suit.suit % 2 != 0)))
         return 1;
-    printf("Move can't be done because of the incompatibility of the suits!\n");
+    else
+    {
+        printf("Move can't be done because of the incompatibility of the suits or number!\n");
+        return 0;
+    }
     return 0;
 }
 
