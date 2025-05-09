@@ -95,10 +95,16 @@ void moveFromAuxiliar(int origin, int destiny)
 
 void moveBetweenStacks(int origin, int destiny)
 {
-    verifyMove(stack[origin - 1]->card, stack[destiny - 1]->card);
+    card aux;
+    if(verifyMove(stack[origin - 1]->card, stack[destiny - 1]->card))
+    {
+        aux = stack[origin - 1]->card;
+        popOfStack(&stack[origin - 1]);
+        pushToStack(aux, &stack[destiny - 1]);
+        printf("Moved from the stack %d to stack %d!\n", origin, destiny);
+    }
+
 }
-
-
 
 void initDeck(card deck[])
 {
