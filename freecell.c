@@ -23,7 +23,6 @@ struct no
 }; typedef struct no *noPtr;
 
 card deck[52];
-// Static list, each position is a stack.
 noPtr stack[8];
 card auxList[4];
 card suitList[4];
@@ -67,7 +66,6 @@ void moveToAuxiliar(int origin, int destiny)
 
 int verifyMove(card cardO, card stack)
 {
-    // We need to verify the suit, and the number of the card on top of the stack
     if((stack.value - cardO.value == 1) && (cardO.suit.suit != stack.suit.suit) && ((cardO.suit.suitNum % 2 == 0 && stack.suit.suit % 2 == 0) || (cardO.suit.suitNum % 2 != 0 && stack.suit.suit % 2 != 0)))
         return 1;
     else
@@ -140,7 +138,6 @@ void shuffleCards(card deck[])
     int j;
     for(int i = size - 1; i > 0; i--)
     {
-        // Generates random number from 0 to N
         j = rand() % (i+1);
         aux = deck[i];
         deck[i] = deck[j];
@@ -148,7 +145,6 @@ void shuffleCards(card deck[])
     }
 }
 
-// We need to divide the 52 cards into 8 stacks
 void divideInStacks(card deck[], noPtr stack[])
 {
     int stackIndex;
